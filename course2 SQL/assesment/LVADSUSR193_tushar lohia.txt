@@ -1,0 +1,30 @@
+1.select CustomerID from CustomerInteractions where Month = 'March' group by CustomerID having avg(DataUsed) < (select AVG(DataUsed) from CustomerInteractions where Month = 'March')
+
+2.select CI_March.CustomerID from CustomerInteractions CI_March join CustomerInteractions CI_February ON CI_March.CustomerID = CI_February.CustomerID where CI_March.Month = 'March' and CI_February.Month = 'February' and CI_March.CallDuration > CI_February.CallDuration
+
+3.select CI_March.CustomerID from CustomerInteractions CI_March join CustomerInteractions CI_February ON CI_March.CustomerID = CI_February.CustomerID where CI_March.Month = 'March'and CI_February.Month = 'February' and CI_March.MessageCount < CI_February.MessageCount and CI_March.DataUsed > CI_February.DataUsed;
+
+4.select sum(TotalSalesAmount) as total_sales from quarterlysales where ProductTypeID = "1";
+
+5.select ProductTypeID,Quarter, TotalSalesAmount from quarterlysales where Quarter = "Q1" order by TotalSalesAmount desc limit 1;
+
+6.select avg(TotalSalesAmount/UnitsSold) from quarterlysales where ProductTypeID ="1" and Quarter= "Q2";
+
+7.select region from sectorenergyconsumption where month = "march" and (EnergySource = "wind" or EnergySource = "solar") and ConsumptionKWh > avg(ConsumptionKWh);
+
+8.select sector,sum(ConsumptionKWh) from sectorenergyconsumption group by sectors order by sum(ConsumptionKWh)
+
+9.select EnergySource,ConsumptionKWh from sectorenergyconsumption  where month = "february" order by ConsumptionKWh;
+
+10.select * from insuranceactivities select CustomerName from insuranceactivities where FeedbackScore>5 or claimcount >5 and  investigation ="no"
+ 
+11.select sum(AnnualPremium) from insuranceactivities where FeedbackScore>5 and claimcount > "1" 
+
+12.select PolicyType,
+case
+        WHEN ClaimsCount = 0 THEN 'no claim'
+        ELSE 'claim taken'
+    END; AS ClaimHistory,
+    AVG(FeedbackScore) AS AvgSatisfactionScore
+from InsuranceActivities group by PolicyType
+   
